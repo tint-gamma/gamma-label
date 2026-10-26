@@ -1624,8 +1624,10 @@ keepTogether(document.body);
   const err = $('palErr'), out = $('palOut'), svg3 = $('pal3d'), svgT = $('palTop');
   const NS = 'http://www.w3.org/2000/svg';
   const PER_CARRIER = 2, CARRIERS = 9, PB = 140;          // 2 พาเลทต่อตู้ (ชั้นบน-ล่าง), เครื่องมี 9 ตู้, พาเลทหนา ~14 ซม.
-  const C = { top: '#F2DCB0', topR: '#E6C48A', fx: '#CFA466', fy: '#E2C08A', fyR: '#D8B47A', edge: 'rgba(122,86,40,.55)',
-              wood: '#3558B8', woodTop: '#6D8FE3', woodSide: '#2A4797', woodDark: '#15275E', env: '#6E8BFF', ink: '#46566E' };
+  // กล่องสีขาวนวล ตัดกับพาเลทไม้สนสีเหลืองอ่อน (แบบพาเลทจริงของฝ่าย)
+  const C = { top: '#FBFAF6', topR: '#E9E5DC', fx: '#D3CEC2', fy: '#EAE6DD', fyR: '#DFDACF', edge: 'rgba(96,88,74,.6)',
+              pine: '#E8C98F', pineTop: '#F1DBA9', pineSide: '#D2AE6E', pineEnd: '#C49A57', gap: '#5E4728', woodEdge: 'rgba(110,78,30,.55)',
+              env: '#6E8BFF', ink: '#46566E' };
   const fmt = n => Math.round(n).toLocaleString('en-US');
   const cm = mm => (Math.round(mm) / 10).toLocaleString('en-US', { maximumFractionDigits: 1 });
   function node(tag, attrs, parent, text){
@@ -1694,9 +1696,16 @@ keepTogether(document.body);
     // back edges of the 120 cm envelope first
     env([0, 0, 0], [0, 0, H], 1); env([0, 0, H], [L, 0, H], 1); env([0, 0, H], [0, W, H], 1);
     // pallet
+    // พาเลทไม้แบบ block: ไม้รองล่าง 3 แนว, ตอม่อ 3×3, ไม้คาน 3 แนว, ไม้พื้นบนวางขวางเว้นร่อง
     const pg = node('g', {}, svg3);
-    prism(pg, 0, 0, -PB, L, W, 0, C.woodTop, C.woodSide, C.wood, 'rgba(15,30,80,.6)');
-    [0.04, 0.46, 0.88].forEach(t => pg.insertAdjacentHTML('beforeend', '<polygon points="' + pts([pr(L * t + 20, W, -PB + 18), pr(L * t + L * 0.08, W, -PB + 18), pr(L * t + L * 0.08, W, -40), pr(L * t + 20, W, -40)]) + '" fill="' + C.woodDark + '"/>'));
+    const lanes = [0, (W - 90) / 2, W - 90], cols = [0, L / 2 - 50, L - 100];
+    const wood = (x1, y1, z1, x2, y2, z2, endX) => prism(pg, x1, y1, z1, x2, y2, z2, C.pineTop, endX ? C.pineEnd : C.pineSide, C.pine, C.woodEdge);
+    node('polygon', { points: pts([pr(-30, -10, -PB), pr(L + 40, -10, -PB), pr(L + 40, W + 40, -PB), pr(-30, W + 40, -PB)]), fill: 'rgba(30,40,60,.12)' }, pg);
+    lanes.forEach(y => wood(0, y, -PB, L, y + 90, -PB + 20, true));
+    lanes.forEach(y => cols.forEach(x => wood(x, y, -PB + 20, x + 100, y + 90, -42, true)));
+    lanes.forEach(y => wood(0, y, -42, L, y + 90, -22, true));
+    const nb = 9, bw = 100, step = (L - bw) / (nb - 1);
+    for (let i = 0; i < nb; i++) wood(i * step, 0, -22, i * step + bw, W, 0, false);
     // boxes, layer by layer
     const many = r.total > 900;
     const ord = order(r.rects);
@@ -1724,9 +1733,15 @@ keepTogether(document.body);
     const P = r.pallet, m = 20, left = 100, bottom = 100;
     svgT.innerHTML = '';
     svgT.setAttribute('viewBox', [-left, -m, P.L + left + m, P.W + m + bottom].join(' '));
-    node('rect', { x: 0, y: 0, width: P.L, height: P.W, rx: 6, fill: C.woodTop, stroke: C.woodSide, 'stroke-width': 4 }, svgT);
-    for (let i = 1; i < 6; i++) node('rect', { x: i * P.L / 6 - 6, y: 0, width: 12, height: P.W, fill: 'rgba(21,39,94,.25)' }, svgT);
-    r.rects.forEach(b => node('rect', { x: b.x + 2, y: b.y + 2, width: b.dx - 4, height: b.dy - 4, rx: 4, fill: b.rot ? C.topR : C.top, stroke: '#A97C43', 'stroke-width': 4 }, svgT));
+    // ไม้พื้นพาเลทวางขวาง เว้นร่องให้เห็นแบบของจริง
+    node('rect', { x: 0, y: 0, width: P.L, height: P.W, fill: C.gap, opacity: .85 }, svgT);
+    const nb = 9, bw = 100, step = (P.L - bw) / (nb - 1);
+    for (let i = 0; i < nb; i++) {
+      node('rect', { x: i * step, y: 0, width: bw, height: P.W, fill: C.pineTop, stroke: C.woodEdge, 'stroke-width': 3 }, svgT);
+      node('line', { x1: i * step + 30, y1: 8, x2: i * step + 34, y2: P.W - 8, stroke: 'rgba(160,115,50,.35)', 'stroke-width': 3 }, svgT);
+      node('line', { x1: i * step + 68, y1: 8, x2: i * step + 64, y2: P.W - 8, stroke: 'rgba(160,115,50,.25)', 'stroke-width': 2 }, svgT);
+    }
+    r.rects.forEach(b => node('rect', { x: b.x + 2, y: b.y + 2, width: b.dx - 4, height: b.dy - 4, rx: 4, fill: b.rot ? C.topR : C.top, stroke: '#7D7465', 'stroke-width': 4 }, svgT));
     node('text', { x: P.L / 2, y: P.W + 70, 'font-size': 56, 'text-anchor': 'middle', fill: C.ink, 'font-weight': 600 }, svgT, 'ยาว 120 ซม.');
     node('text', { x: -40, y: P.W / 2, 'font-size': 56, 'text-anchor': 'middle', fill: C.ink, 'font-weight': 600, transform: 'rotate(-90 -40 ' + P.W / 2 + ')' }, svgT, 'กว้าง 55 ซม.');
   }
