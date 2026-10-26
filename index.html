@@ -1625,7 +1625,7 @@ keepTogether(document.body);
   const NS = 'http://www.w3.org/2000/svg';
   const PER_CARRIER = 2, CARRIERS = 9, PB = 140;          // 2 พาเลทต่อตู้ (ชั้นบน-ล่าง), เครื่องมี 9 ตู้, พาเลทหนา ~14 ซม.
   const C = { top: '#F2DCB0', topR: '#E6C48A', fx: '#CFA466', fy: '#E2C08A', fyR: '#D8B47A', edge: 'rgba(122,86,40,.55)',
-              wood: '#C4935A', woodTop: '#DDB47C', woodDark: '#8C6436', env: '#6E8BFF', ink: '#46566E' };
+              wood: '#3558B8', woodTop: '#6D8FE3', woodSide: '#2A4797', woodDark: '#15275E', env: '#6E8BFF', ink: '#46566E' };
   const fmt = n => Math.round(n).toLocaleString('en-US');
   const cm = mm => (Math.round(mm) / 10).toLocaleString('en-US', { maximumFractionDigits: 1 });
   function node(tag, attrs, parent, text){
@@ -1695,7 +1695,7 @@ keepTogether(document.body);
     env([0, 0, 0], [0, 0, H], 1); env([0, 0, H], [L, 0, H], 1); env([0, 0, H], [0, W, H], 1);
     // pallet
     const pg = node('g', {}, svg3);
-    prism(pg, 0, 0, -PB, L, W, 0, C.woodTop, C.wood, C.wood, 'rgba(90,60,25,.5)');
+    prism(pg, 0, 0, -PB, L, W, 0, C.woodTop, C.woodSide, C.wood, 'rgba(15,30,80,.6)');
     [0.04, 0.46, 0.88].forEach(t => pg.insertAdjacentHTML('beforeend', '<polygon points="' + pts([pr(L * t + 20, W, -PB + 18), pr(L * t + L * 0.08, W, -PB + 18), pr(L * t + L * 0.08, W, -40), pr(L * t + 20, W, -40)]) + '" fill="' + C.woodDark + '"/>'));
     // boxes, layer by layer
     const many = r.total > 900;
@@ -1724,8 +1724,8 @@ keepTogether(document.body);
     const P = r.pallet, m = 20, left = 100, bottom = 100;
     svgT.innerHTML = '';
     svgT.setAttribute('viewBox', [-left, -m, P.L + left + m, P.W + m + bottom].join(' '));
-    node('rect', { x: 0, y: 0, width: P.L, height: P.W, rx: 6, fill: C.woodTop, stroke: 'rgba(90,60,25,.5)', 'stroke-width': 3 }, svgT);
-    for (let i = 1; i < 6; i++) node('rect', { x: i * P.L / 6 - 6, y: 0, width: 12, height: P.W, fill: 'rgba(120,80,35,.25)' }, svgT);
+    node('rect', { x: 0, y: 0, width: P.L, height: P.W, rx: 6, fill: C.woodTop, stroke: C.woodSide, 'stroke-width': 4 }, svgT);
+    for (let i = 1; i < 6; i++) node('rect', { x: i * P.L / 6 - 6, y: 0, width: 12, height: P.W, fill: 'rgba(21,39,94,.25)' }, svgT);
     r.rects.forEach(b => node('rect', { x: b.x + 2, y: b.y + 2, width: b.dx - 4, height: b.dy - 4, rx: 4, fill: b.rot ? C.topR : C.top, stroke: '#A97C43', 'stroke-width': 4 }, svgT));
     node('text', { x: P.L / 2, y: P.W + 70, 'font-size': 56, 'text-anchor': 'middle', fill: C.ink, 'font-weight': 600 }, svgT, 'ยาว 120 ซม.');
     node('text', { x: -40, y: P.W / 2, 'font-size': 56, 'text-anchor': 'middle', fill: C.ink, 'font-weight': 600, transform: 'rotate(-90 -40 ' + P.W / 2 + ')' }, svgT, 'กว้าง 55 ซม.');
