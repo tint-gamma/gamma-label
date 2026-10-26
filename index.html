@@ -84,6 +84,7 @@ p{margin:0}
 .pill-ghost:hover{border-color:#B9C6DB}
 .pill svg{width:18px;height:18px;flex-shrink:0}
 .nav .pill{margin-left:auto;min-height:40px;padding:0 16px;font-size:14px}
+@media (min-width:1000px) and (max-width:1199px){.nav-links a{padding:8px 8px;font-size:14px}}
 .menu-btn{
   width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:#fff;
   display:grid;place-items:center;cursor:pointer;flex-shrink:0;
@@ -350,6 +351,49 @@ section{position:relative}
 .result-note{font-size:14.5px;color:var(--ink-2);padding:12px 14px;border-radius:12px;background:#F4F7FC}
 .finder-foot{margin-top:16px;font-size:13px;color:var(--ink-3);line-height:1.6}
 
+/* pallet planner */
+.pal-form{display:grid;gap:16px}
+.pal-dims{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:6px}
+.pal-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.pal-field>span{font-size:14px;font-weight:600;color:var(--ink-2)}
+.pal-in{position:relative}
+.pal-in input{width:100%;height:52px;padding:0 36px 0 12px;border:1.5px solid var(--line);border-radius:14px;background:#fff;color:var(--ink);font:600 20px/1 "Anuphan",sans-serif;-moz-appearance:textfield;appearance:textfield}
+.pal-in input::-webkit-outer-spin-button,.pal-in input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.pal-in input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(36,87,230,.15)}
+.pal-in input[aria-invalid="true"]{border-color:#D9822B}
+.pal-in i{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-style:normal;font-size:13px;color:var(--ink-3);pointer-events:none}
+.pal-x{padding-bottom:15px;color:var(--ink-3);font-size:18px}
+.pal-tip{display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:15.5px;font-weight:500}
+.pal-tip input{width:20px;height:20px;margin:2px 0 0;flex-shrink:0;accent-color:var(--blue)}
+.pal-tip small{display:block;font-size:13px;font-weight:400;color:var(--ink-3)}
+.pal-presets .chip{padding:9px 13px;font-size:14px}
+.pal-presets-l{font-size:13px;color:var(--ink-3);margin-bottom:-6px}
+.pal-err{margin-top:18px;padding:12px 14px;border-radius:12px;background:#FFF8E8;border:1.5px solid #F0CF86;color:#6B4A00;font-size:14.5px}
+.pal-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px}
+.pal-stat{display:flex;flex-direction:column;gap:2px;padding:14px 14px 12px;border-radius:16px;background:#F4F7FC;min-width:0}
+.pal-stat span{font-size:13.5px;font-weight:600;color:var(--ink-2)}
+.pal-stat b{font:700 36px/1.05 "Cormorant Garamond",serif;color:var(--ink);font-variant-numeric:lining-nums}
+.pal-stat small{font-size:12.5px;color:var(--ink-3)}
+.pal-stat.hl{background:#EEF3FD}
+.pal-stat.hl b{color:var(--blue)}
+.pal-stat.big{grid-column:1/-1;border:2px solid transparent;background:linear-gradient(160deg,#0B2350,#071733) padding-box,var(--iri) border-box;box-shadow:0 18px 40px -22px rgba(36,87,230,.6)}
+.pal-stat.big span{color:#B9CBEA}.pal-stat.big b{color:#fff;font-size:46px}.pal-stat.big small{color:#8FA6DE}
+.pal-views{display:grid;gap:12px;margin-top:14px}
+.pal-views figure{margin:0;padding:10px 10px 12px;border-radius:16px;background:linear-gradient(180deg,#F7F9FD,#EDF2F9)}
+.pal-views svg{display:block;width:100%;height:auto;font-family:"Anuphan",sans-serif}
+.pal-views figcaption{margin-top:6px;font-size:13px;color:var(--ink-2);text-align:center}
+.pal-views .lyr{animation:palDrop .45s cubic-bezier(.2,.8,.2,1) both}
+@keyframes palDrop{from{opacity:0;transform:translateY(-26px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.pal-views .lyr{animation:none}}
+.pal-note{margin-top:14px}
+@media (min-width:760px){
+  .pal-stats{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .pal-stat.big{grid-column:auto}
+  .pal-stat.big b{font-size:40px}
+  .pal-views{grid-template-columns:1.45fr 1fr;align-items:stretch}
+  .pal-views figure{display:flex;flex-direction:column;justify-content:center}
+}
+
 /* process */
 .steps{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:st}
 .steps li{position:relative;padding:0 0 28px 64px}
@@ -363,6 +407,7 @@ section{position:relative}
 .steps li:last-child::after{display:none}
 .steps h3{font-size:18px;padding-top:8px}
 .steps p{color:var(--ink-2);font-size:15.5px;margin-top:4px}
+.steps p a{color:var(--blue);font-weight:600;text-underline-offset:3px}
 
 /* safety */
 .safe{display:grid;gap:0;border-top:1px solid var(--line)}
@@ -572,6 +617,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
   <a href="#how">หลักการทำงาน</a>
   <a href="#services">บริการ</a>
   <a href="#dose">ปริมาณรังสีที่ใช้</a>
+  <a href="#pallet">คำนวณกล่องต่อพาเลท</a>
   <a href="#process">ขั้นตอนการขอใช้บริการ</a>
   <a href="#safety">ความปลอดภัย</a>
   <a href="#standards">มาตรฐานและการรับรอง</a>
@@ -759,6 +805,52 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
   </div>
 </section>
 
+<!-- PALLET PLANNER -->
+<section class="sec" id="pallet" data-name="คำนวณพาเลท" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="serif">Pallet planner</span>กล่องของคุณวางได้กี่กล่อง</h2>
+      <p>กรอกขนาดกล่องสินค้า ระบบจะจัดเรียงกล่องบนพาเลทของตู้ฉาย กว้าง 55 × ยาว 120 ซม. วางสูงได้ไม่เกิน 120 ซม. แล้วบอกจำนวนกล่องต่อพาเลท ต่อตู้ และเมื่อเต็มทั้ง 9 ตู้</p>
+    </div>
+    <div class="finder pal">
+      <form class="pal-form" id="palForm" novalidate>
+        <div class="pal-dims">
+          <label class="pal-field"><span>กว้าง</span><span class="pal-in"><input id="palW" type="number" inputmode="decimal" min="5" max="120" step="0.1" value="30" aria-describedby="palErr"><i>ซม.</i></span></label>
+          <span class="pal-x" aria-hidden="true">×</span>
+          <label class="pal-field"><span>ยาว</span><span class="pal-in"><input id="palL" type="number" inputmode="decimal" min="5" max="120" step="0.1" value="40" aria-describedby="palErr"><i>ซม.</i></span></label>
+          <span class="pal-x" aria-hidden="true">×</span>
+          <label class="pal-field"><span>สูง</span><span class="pal-in"><input id="palH" type="number" inputmode="decimal" min="5" max="120" step="0.1" value="30" aria-describedby="palErr"><i>ซม.</i></span></label>
+        </div>
+        <label class="pal-tip"><input type="checkbox" id="palTip"><span>วางตะแคงกล่องได้<small>เลือกเมื่อสินค้าไม่มีข้อกำหนดให้วางด้านบนขึ้นเสมอ ระบบจะลองทุกด้านแล้วเลือกแบบที่ได้มากที่สุด</small></span></label>
+        <p class="pal-presets-l">ลองขนาดตัวอย่าง</p>
+        <div class="chips pal-presets" id="palPresets" role="group" aria-label="ขนาดกล่องตัวอย่าง">
+          <button type="button" class="chip" data-d="30,40,30">30 × 40 × 30</button>
+          <button type="button" class="chip" data-d="25,35,20">25 × 35 × 20</button>
+          <button type="button" class="chip" data-d="40,60,40">40 × 60 × 40</button>
+          <button type="button" class="chip" data-d="20,30,25">20 × 30 × 25</button>
+          <button type="button" class="chip" data-d="50,50,50">50 × 50 × 50</button>
+        </div>
+      </form>
+      <p class="pal-err" id="palErr" role="alert" hidden></p>
+      <div id="palOut" aria-live="polite">
+        <div class="pal-stats">
+          <div class="pal-stat"><span>ต่อชั้น</span><b id="sLayer">–</b><small>กล่อง</small></div>
+          <div class="pal-stat"><span>จำนวนชั้น</span><b id="sLayers">–</b><small id="sStack">ชั้น</small></div>
+          <div class="pal-stat hl"><span>1 พาเลท</span><b id="sPallet">–</b><small>กล่อง</small></div>
+          <div class="pal-stat"><span>1 ตู้ (2 พาเลท)</span><b id="sCarrier">–</b><small>กล่อง</small></div>
+          <div class="pal-stat big"><span>เต็ม 9 ตู้</span><b id="sAll">–</b><small>กล่อง (18 พาเลท)</small></div>
+        </div>
+        <div class="pal-views">
+          <figure><svg id="pal3d" viewBox="0 0 100 60" role="img" aria-labelledby="pal3dCap"></svg><figcaption id="pal3dCap">ภาพการจัดเรียงบนพาเลท</figcaption></figure>
+          <figure><svg id="palTop" viewBox="0 0 100 60" role="img" aria-labelledby="palTopCap"></svg><figcaption id="palTopCap">มุมมองจากด้านบน 1 ชั้น</figcaption></figure>
+        </div>
+        <p class="result-note pal-note" id="palNote"></p>
+      </div>
+      <p class="finder-foot">ผลคำนวณเป็นค่าประมาณเพื่อวางแผน ทุกชั้นจัดเรียงแบบเดียวกันและไม่วางกล่องเกินขอบพาเลท จำนวนที่จัดได้จริงขึ้นกับน้ำหนักและความแข็งแรงของกล่อง ความหนาแน่นของสินค้า และการจัดวางของเจ้าหน้าที่เพื่อให้ปริมาณรังสีสม่ำเสมอ</p>
+    </div>
+  </div>
+</section>
+
 <!-- PROCESS -->
 <section class="sec" id="process" data-name="ขั้นตอน" style="padding-top:0">
   <div class="wrap">
@@ -767,7 +859,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <p>ตั้งแต่ติดต่อครั้งแรกจนรับสินค้าคืน</p>
     </div>
     <ol class="steps">
-      <li><h3>ติดต่อและยื่นคำขอ</h3><p>แจ้งชนิดสินค้า จำนวน ขนาดกล่อง น้ำหนัก และปริมาณรังสีที่ต้องการ พร้อมกรอกแบบคำขอใช้บริการ</p></li>
+      <li><h3>ติดต่อและยื่นคำขอ</h3><p>แจ้งชนิดสินค้า จำนวน ขนาดกล่อง น้ำหนัก และปริมาณรังสีที่ต้องการ พร้อมกรอกแบบคำขอใช้บริการ (ลอง<a href="#pallet">คำนวณจำนวนกล่องต่อพาเลท</a>ก่อนได้)</p></li>
       <li><h3>ตรวจเอกสารและนัดวันฉาย</h3><p>เจ้าหน้าที่ตรวจข้อมูล คำนวณเวลาฉาย และนัดวันนำสินค้าเข้า</p></li>
       <li><h3>รับสินค้าเข้า</h3><p>ตรวจนับสินค้าทีละพาเลท และตรวจ Lot ให้ตรงกับเอกสาร</p></li>
       <li><h3>ฉายรังสี</h3><p>จัดสินค้าเข้าตู้ฉาย และวางดอซิมิเตอร์ไว้กับสินค้าเพื่อวัดปริมาณรังสีที่ได้รับจริง</p></li>
@@ -1519,6 +1611,176 @@ keepTogether(document.body);
   };
   new IntersectionObserver(es => tell(es[0].isIntersecting), { threshold: 0.05 }).observe(view3d);
   document.addEventListener('visibilitychange', () => tell(!document.hidden));
+})();
+</script>
+<script src="pallet-calc.js?v=1"></script>
+<script>
+/* ---------- pallet planner: boxes per pallet / carrier ---------- */
+(function(){
+  const form = document.getElementById('palForm');
+  if (!form || !window.PalletCalc) return;
+  const $ = id => document.getElementById(id);
+  const inputs = [$('palW'), $('palL'), $('palH')], tip = $('palTip');
+  const err = $('palErr'), out = $('palOut'), svg3 = $('pal3d'), svgT = $('palTop');
+  const NS = 'http://www.w3.org/2000/svg';
+  const PER_CARRIER = 2, CARRIERS = 9, PB = 140;          // 2 พาเลทต่อตู้ (ชั้นบน-ล่าง), เครื่องมี 9 ตู้, พาเลทหนา ~14 ซม.
+  const C = { top: '#F2DCB0', topR: '#E6C48A', fx: '#CFA466', fy: '#E2C08A', fyR: '#D8B47A', edge: 'rgba(122,86,40,.55)',
+              wood: '#C4935A', woodTop: '#DDB47C', woodDark: '#8C6436', env: '#6E8BFF', ink: '#46566E' };
+  const fmt = n => Math.round(n).toLocaleString('en-US');
+  const cm = mm => (Math.round(mm) / 10).toLocaleString('en-US', { maximumFractionDigits: 1 });
+  function node(tag, attrs, parent, text){
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  const pts = a => a.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+
+  // ---- read inputs (ซม. -> มม.)
+  function read(){
+    let ok = true;
+    const v = inputs.map(i => {
+      const n = parseFloat(String(i.value).replace(',', '.'));
+      const good = isFinite(n) && n >= 5 && n <= 120;
+      i.setAttribute('aria-invalid', good ? 'false' : 'true');
+      if (!good) ok = false;
+      return n * 10;
+    });
+    return ok ? v : null;
+  }
+
+  // ---- 3D view (oblique projection, viewer at +X +Y +Z)
+  const A = 20 * Math.PI / 180, B = 38 * Math.PI / 180;
+  const pr = (x, y, z) => [x * Math.cos(A) - y * Math.cos(B), x * Math.sin(A) + y * Math.sin(B) - z];
+  function prism(g, x1, y1, z1, x2, y2, z2, top, fx, fy, stroke){
+    const sw = stroke ? ' stroke="' + stroke + '" stroke-width="2.2" stroke-linejoin="round"' : '';
+    g.insertAdjacentHTML('beforeend',
+      '<polygon points="' + pts([pr(x2, y1, z1), pr(x2, y2, z1), pr(x2, y2, z2), pr(x2, y1, z2)]) + '" fill="' + fx + '"' + sw + '/>' +
+      '<polygon points="' + pts([pr(x1, y2, z1), pr(x2, y2, z1), pr(x2, y2, z2), pr(x1, y2, z2)]) + '" fill="' + fy + '"' + sw + '/>' +
+      '<polygon points="' + pts([pr(x1, y1, z2), pr(x2, y1, z2), pr(x2, y2, z2), pr(x1, y2, z2)]) + '" fill="' + top + '"' + sw + '/>');
+  }
+  // draw order inside one layer: boxes further back (smaller x / y) first
+  function order(rects){
+    const n = rects.length, e = 0.5;
+    if (n > 400) return rects.slice().sort((a, b) => (a.x + a.dx / 2 + a.y + a.dy / 2) - (b.x + b.dx / 2 + b.y + b.dy / 2));
+    const indeg = new Array(n).fill(0), adj = rects.map(() => []);
+    for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) {
+      const a = rects[i], b = rects[j];
+      const xo = a.x < b.x + b.dx - e && b.x < a.x + a.dx - e, yo = a.y < b.y + b.dy - e && b.y < a.y + a.dy - e;
+      let f = -1, t = -1;
+      if (xo) { if (a.y + a.dy <= b.y + e) { f = i; t = j; } else if (b.y + b.dy <= a.y + e) { f = j; t = i; } }
+      else if (yo) { if (a.x + a.dx <= b.x + e) { f = i; t = j; } else if (b.x + b.dx <= a.x + e) { f = j; t = i; } }
+      if (f >= 0) { adj[f].push(t); indeg[t]++; }
+    }
+    const res = [], ready = [];
+    for (let i = 0; i < n; i++) if (!indeg[i]) ready.push(i);
+    while (ready.length) {
+      ready.sort((p, q) => (rects[q].x + rects[q].y) - (rects[p].x + rects[p].y));
+      const i = ready.pop(); res.push(rects[i]);
+      adj[i].forEach(t => { if (!--indeg[t]) ready.push(t); });
+    }
+    return res.length === n ? res : rects;
+  }
+  function draw3D(r){
+    const P = r.pallet, L = P.L, W = P.W, H = P.H;
+    svg3.innerHTML = '';
+    const corners = [];
+    [0, L].forEach(x => [0, W].forEach(y => [-PB, H].forEach(z => corners.push(pr(x, y, z)))));
+    const minX = Math.min(...corners.map(c => c[0])) - 170, maxX = Math.max(...corners.map(c => c[0])) + 70;
+    const minY = Math.min(...corners.map(c => c[1])) - 40, maxY = Math.max(...corners.map(c => c[1])) + 170;
+    svg3.setAttribute('viewBox', [minX, minY, maxX - minX, maxY - minY].map(v => v.toFixed(0)).join(' '));
+    const env = (a, b, dash) => node('line', { x1: pr(...a)[0], y1: pr(...a)[1], x2: pr(...b)[0], y2: pr(...b)[1], stroke: C.env, 'stroke-width': 3, 'stroke-dasharray': dash ? '14 12' : '', opacity: .55 }, svg3);
+    // back edges of the 120 cm envelope first
+    env([0, 0, 0], [0, 0, H], 1); env([0, 0, H], [L, 0, H], 1); env([0, 0, H], [0, W, H], 1);
+    // pallet
+    const pg = node('g', {}, svg3);
+    prism(pg, 0, 0, -PB, L, W, 0, C.woodTop, C.wood, C.wood, 'rgba(90,60,25,.5)');
+    [0.04, 0.46, 0.88].forEach(t => pg.insertAdjacentHTML('beforeend', '<polygon points="' + pts([pr(L * t + 20, W, -PB + 18), pr(L * t + L * 0.08, W, -PB + 18), pr(L * t + L * 0.08, W, -40), pr(L * t + 20, W, -40)]) + '" fill="' + C.woodDark + '"/>'));
+    // boxes, layer by layer
+    const many = r.total > 900;
+    const ord = order(r.rects);
+    for (let k = 0; k < r.layers; k++) {
+      const z1 = k * r.h, z2 = z1 + r.h, top = k === r.layers - 1;
+      const g = node('g', { class: 'lyr', style: 'animation-delay:' + Math.min(k * 70, 900) + 'ms' }, svg3);
+      if (many && !top) {
+        const x1 = (L - r.usedL) / 2, y1 = (W - r.usedW) / 2;
+        prism(g, x1, y1, z1, x1 + r.usedL, y1 + r.usedW, z2, C.top, C.fx, C.fy, C.edge);
+        continue;
+      }
+      ord.forEach(b => prism(g, b.x, b.y, z1, b.x + b.dx, b.y + b.dy, z2, b.rot ? C.topR : C.top, C.fx, b.rot ? C.fyR : C.fy, C.edge));
+    }
+    // front edges of the envelope + labels
+    env([L, 0, 0], [L, 0, H], 1); env([0, W, 0], [0, W, H], 1); env([L, W, 0], [L, W, H], 1);
+    env([L, 0, H], [L, W, H], 1); env([0, W, H], [L, W, H], 1);
+    const lab = (p, text, rot, anchor) => { const q = pr(...p); node('text', { x: q[0], y: q[1], 'font-size': 64, fill: C.ink, 'text-anchor': anchor || 'middle', 'font-weight': 600, transform: rot ? 'rotate(' + rot + ' ' + q[0] + ' ' + q[1] + ')' : '' }, svg3, text); };
+    lab([L / 2, W + 60, -PB - 70], 'ยาว 120 ซม.', A * 180 / Math.PI);
+    lab([L + 90, W / 2, -PB - 50], 'กว้าง 55 ซม.', -B * 180 / Math.PI);
+    const hp = pr(0, W, H / 2); node('text', { x: hp[0] - 40, y: hp[1], 'font-size': 64, fill: C.env, 'text-anchor': 'middle', 'font-weight': 600, transform: 'rotate(-90 ' + (hp[0] - 40) + ' ' + hp[1] + ')' }, svg3, 'สูงไม่เกิน 120 ซม.');
+  }
+
+  // ---- top view of one layer
+  function drawTop(r){
+    const P = r.pallet, m = 20, left = 100, bottom = 100;
+    svgT.innerHTML = '';
+    svgT.setAttribute('viewBox', [-left, -m, P.L + left + m, P.W + m + bottom].join(' '));
+    node('rect', { x: 0, y: 0, width: P.L, height: P.W, rx: 6, fill: C.woodTop, stroke: 'rgba(90,60,25,.5)', 'stroke-width': 3 }, svgT);
+    for (let i = 1; i < 6; i++) node('rect', { x: i * P.L / 6 - 6, y: 0, width: 12, height: P.W, fill: 'rgba(120,80,35,.25)' }, svgT);
+    r.rects.forEach(b => node('rect', { x: b.x + 2, y: b.y + 2, width: b.dx - 4, height: b.dy - 4, rx: 4, fill: b.rot ? C.topR : C.top, stroke: '#A97C43', 'stroke-width': 4 }, svgT));
+    node('text', { x: P.L / 2, y: P.W + 70, 'font-size': 56, 'text-anchor': 'middle', fill: C.ink, 'font-weight': 600 }, svgT, 'ยาว 120 ซม.');
+    node('text', { x: -40, y: P.W / 2, 'font-size': 56, 'text-anchor': 'middle', fill: C.ink, 'font-weight': 600, transform: 'rotate(-90 -40 ' + P.W / 2 + ')' }, svgT, 'กว้าง 55 ซม.');
+  }
+
+  let lastKey = '';
+  function update(){
+    const d = read();
+    if (!d) { show('กรอกขนาดกล่องเป็นตัวเลข 5–120 ซม. ทั้ง 3 ช่อง'); return; }
+    const key = d.join('x') + tip.checked;
+    if (key === lastKey) return;
+    lastKey = key;
+    const r = PalletCalc.plan(d, { tip: tip.checked });
+    if (!r) {
+      const alt = tip.checked ? null : PalletCalc.plan(d, { tip: true });
+      show('กล่องขนาดนี้วางบนพาเลทไม่ได้ ฐานกล่องต้องไม่เกิน 55 × 120 ซม. และสูงไม่เกิน 120 ซม.' + (alt ? ' ลองเลือก “วางตะแคงกล่องได้”' : ' กรุณาติดต่อเจ้าหน้าที่เพื่อจัดการเป็นกรณีพิเศษ'));
+      return;
+    }
+    err.hidden = true; out.style.opacity = '';
+    $('sLayer').textContent = fmt(r.perLayer);
+    $('sLayers').textContent = fmt(r.layers);
+    $('sStack').textContent = 'สูงรวม ' + cm(r.stackH) + ' ซม.';
+    $('sPallet').textContent = fmt(r.total);
+    $('sCarrier').textContent = fmt(r.total * PER_CARRIER);
+    $('sAll').textContent = fmt(r.total * PER_CARRIER * CARRIERS);
+    draw3D(r); drawTop(r);
+    const rotN = r.rects.filter(b => b.rot).length, mixed = rotN > 0 && rotN < r.rects.length;
+    let note = 'วางได้ชั้นละ ' + fmt(r.perLayer) + ' กล่อง ซ้อน ' + fmt(r.layers) + ' ชั้น สูงรวม ' + cm(r.stackH) + ' ซม. ใช้พื้นที่บนพาเลท ' + cm(r.usedL) + ' × ' + cm(r.usedW) + ' ซม. คิดเป็นปริมาตร ' + Math.round(r.util * 100) + '% ของพื้นที่วางสินค้า';
+    if (mixed) note += ' แต่ละชั้นวางกล่องทั้งแนวยาวและแนวขวาง (สีเข้มคือกล่องที่หมุน 90°)';
+    if (!r.upright) note += ' โดยวางกล่องตะแคงให้ด้าน ' + cm(r.h) + ' ซม. เป็นความสูง';
+    if (!tip.checked) {
+      const alt = PalletCalc.plan(d, { tip: true });
+      if (alt && alt.total > r.total) note += ' · ถ้าวางตะแคงกล่องได้ จะวางได้ ' + fmt(alt.total) + ' กล่องต่อพาเลท';
+    }
+    $('palNote').textContent = note;
+    $('pal3dCap').textContent = 'ภาพการจัดเรียง ' + fmt(r.layers) + ' ชั้นบนพาเลท (เส้นประคือความสูงสูงสุด 120 ซม.)';
+    $('palTopCap').textContent = 'มุมมองจากด้านบน 1 ชั้น (' + fmt(r.perLayer) + ' กล่อง)';
+    markPreset();
+  }
+  function show(msg){
+    err.textContent = msg; err.hidden = false; out.style.opacity = '.35'; lastKey = '';
+  }
+  function markPreset(){
+    const cur = inputs.map(i => parseFloat(i.value)).join(',');
+    document.querySelectorAll('#palPresets .chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.d.split(',').map(Number).join(',') === cur ? 'true' : 'false'));
+  }
+  let t = null;
+  inputs.forEach(i => i.addEventListener('input', () => { clearTimeout(t); t = setTimeout(update, 160); }));
+  tip.addEventListener('change', update);
+  form.addEventListener('submit', e => { e.preventDefault(); update(); });
+  document.querySelectorAll('#palPresets .chip').forEach(c => c.addEventListener('click', () => {
+    c.dataset.d.split(',').forEach((v, k) => { inputs[k].value = v; });
+    update();
+  }));
+  update();
 })();
 </script>
 </body>
